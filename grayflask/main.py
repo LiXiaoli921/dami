@@ -1,8 +1,7 @@
-#!/usr/bin/python3
 """Script for Public Cloud
 @author: A
 """
-
+#!/usr/bin/python3
 
 import argparse
 import numpy as np
