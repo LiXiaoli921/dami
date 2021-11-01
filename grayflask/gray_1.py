@@ -6,7 +6,7 @@ from flask import Flask
 #from flask_restful import Resource, Api
 
 app = Flask(__name__)
-# api = Api(app)
+#api = Api(app)
 
 
 import numpy as np
@@ -43,8 +43,7 @@ def cv2_im2gray():
     # cv.imwrite('./processed/' + str(time.time()) + ".jpg", gray_img)
     return "gray image saved"
 
-
 if __name__ == "__main__":
-    # grayflask.run(debug=False, host='106.52.97.178')
-    # grayflask.run(debug=True, host='0.0.0.0')
+    # app.run(debug=False, host='106.52.97.178')
+    # app.run(debug=True, host='0.0.0.0')
     app.run(host="0.0.0.0", port=5000,debug=True)
