@@ -1,45 +1,37 @@
+# encoding=utf-8
 """Script for Public Cloud
 @author: A
 """
-#!/usr/bin/python3
 
-import argparse
-import numpy as np
-from matplotlib import pyplot as plt
-
-import numpy as np
+from flask import Flask,jsonify
+from flask_restful import Resource, Api
+from flask import request
 import cv2 as cv
-import time
-from PIL import Image
+from skimage import io
+# from io import StringIO
+# from easydict import EasyDict
+
+app = Flask(__name__)
+api = Api(app)
 
 
-# construct the argument parser and parse the arguments
-parser = argparse.ArgumentParser(description='命令行传入图像名称')
-parser.add_argument('-i','--input', required=True,help="path to input image")
-parser.add_argument('-o','--output',required=True,help="path to output image")
-# parser.add_argument('--batch-size', type=int, default=32)
+@app.route('/',methods=['POST','GET'])
 
-# args = parser.parse_args()
-args = vars(parser.parse_args())
+def cv2_im2gray():  # 视图函数
 
-
-def cv2_im2gray(image_name):
-    image_name = args["input"]
-    # solution 1st: to use openCv
-
-    img = cv.imread(image_name)
-
+    link = request.args.get('link')  # args取get方式参数
+    name = request.args.get('save_name')
+    img = io.imread(link)
+    # print(img.shape)
+    # print(img)
     gray_img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)  # Y = 0.299R + 0.587G + 0.114B
-    print("cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)结果如下：")
-    print('大小:{}'.format(gray_img.shape))
-    print("类型：%s" % type(gray_img))
-    print(gray_img)
-
-    # cv.imwrite('./processed/'+str(time.time()) + ".jpg", gray_img)
-    cv.imwrite('./processed/'+args["output"] + ".jpg", gray_img)
+    cv.imwrite('../processed/' + str(name) + ".jpg", gray_img)
+    # cv.imwrite('./processed/' + str(time.time()) + ".jpg", gray_img)
+    return jsonify(msg="gray image saved")
 
 
 
-if __name__ == '__main__':
-    image_name = args["input"]
-    cv2_im2gray(image_name)
+if __name__ == "__main__":
+    # grayflask.run(debug=False, host='106.52.97.178')
+    # grayflask.run(debug=True, host='0.0.0.0')
+    app.run(host="0.0.0.0", port=5000,debug=True)

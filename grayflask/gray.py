@@ -3,25 +3,16 @@
 """
 
 from flask import Flask
-#from flask_restful import Resource, Api
+from flask_restful import Resource, Api
+import argparse
+import cv2 as cv
+from skimage import io
+# from io import StringIO
 
 app = Flask(__name__)
-# api = Api(app)
+api = Api(app)
 
 
-import numpy as np
-from matplotlib import pyplot as plt
-
-import numpy as np
-import cv2 as cv
-import time
-from main import *
-# import tensorflow as tf
-from PIL import Image
-from skimage import io
-# import urllib2
-# import Image
-# import cStringIO
 
 
 # construct the argument parser and parse the arguments
